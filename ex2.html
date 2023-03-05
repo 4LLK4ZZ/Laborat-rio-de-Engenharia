@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    function atualizarHorario() {
+        const dataAtual = new Date();
+      
+        const horas = dataAtual.getHours();
+        const minutos = dataAtual.getMinutes();
+        const segundos = dataAtual.getSeconds();
+      
+        const horasFormatadas = horas < 10 ? '0' + horas : horas;
+        const minutosFormatados = minutos < 10 ? '0' + minutos : minutos;
+        const segundosFormatados = segundos < 10 ? '0' + segundos : segundos;
+      
+        document.write(`${horasFormatadas}:${minutosFormatados}:${segundosFormatados}\n`);
+
+        setTimeout(atualizarHorario, 1000);
+      }
+      atualizarHorario();
+    </script>
+</body>
+</html>
