@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXERCÍCIO 2 - ALCIDES</title>
+</head>
+<body>
+    <form id="carrof">
+        <label for="marca">Marca:</label>
+        <input type="text" id="marca" name="marca" required><br><br>
+        
+        <label for="modelo">Modelo:</label>
+        <input type="text" id="modelo" name="modelo" required><br><br>
+        
+        <label for="ano">Ano:</label>
+        <input type="number" id="ano" name="ano" required><br><br>
+        
+        <label for="cor">Cor:</label>
+        <input type="text" id="cor" name="cor" required><br><br>
+        
+        <label for="kilometragem">Kilometragem:</label>
+        <input type="number" id="kilometragem" name="kilometragem" required><br><br>
+        
+        <label for="valor_fipe">Valor FIPE:</label>
+        <input type="number" id="valor_fipe" name="valor_fipe" required><br><br>
+        
+        <input type="submit" value="Pesquisar">
+      </form>
+      <script>
+        document.getElementById("carrof").addEventListener("submit", function(event) {
+          event.preventDefault();
+          var marca = document.getElementById("marca").value;
+          var modelo = document.getElementById("modelo").value;
+          var ano = document.getElementById("ano").value;
+          var cor = document.getElementById("cor").value;
+          var kilometragem = document.getElementById("kilometragem").value;
+          var valor_fipe = document.getElementById("valor_fipe").value;
+          
+          var carro = {
+            marca: marca,
+            modelo: modelo,
+            ano: ano,
+            cor: cor,
+            kilometragem: kilometragem,
+            valor_fipe: valor_fipe,
+            anosUtilizacao: function() {
+              var ag = new Date();
+              var idade = ag.getFullYear() - this.ano;
+              if (ag.getMonth() < 11 || (ag.getMonth() == 11 && ag.getDate() < 31)) {
+                idade--;
+              }
+              return idade;
+            },
+            valorMercado: function() {
+              var km_ano = this.kilometragem / this.anosUtilizacao();
+              if (km_ano <= 30000) {
+                return this.valor_fipe * 1.1;
+              } else if (km_ano <= 50000) {
+                return this.valor_fipe;
+              } else {
+                return this.valor_fipe * 0.9;
+              }
+            }
+          };
+          
+          alert("Anos de utilização: " + carro.anosUtilizacao() + "\nValor de mercado: " + carro.valorMercado().toFixed(2));
+        });
+      </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>EXERCÍCIO 1 - ALCIDES</title>
+  </head>
+  <body>
+    <form>
+      <label for="valor">Insira um número:</label>
+      <input type="text" id="valor">
+      <button type="button" onclick="adicionarValor()">Adicionar</button>
+    </form>
+    <br>
+    <h2>Valores Registrados:</h2>
+    <ol id="valores"></ol>
+    
+    <script>
+      let arrayValores = [];
+
+      function adicionarValor() {
+        let inputValor = document.getElementById("valor");
+        let valor = inputValor.value;
+        
+        if (valor !== "") {
+          arrayValores.push(valor);
+          inputValor.value = "";
+          exibirValoresOrdenados();
+        }
+      }
+
+      function exibirValoresOrdenados() {
+        let valoresOrdenados = arrayValores.sort();
+        let listaValores = document.getElementById("valores");
+        listaValores.innerHTML = "";
+        
+        for (let i = 0; i < valoresOrdenados.length; i++) {
+          let itemLista = document.createElement("li");
+          let valor = document.createTextNode(valoresOrdenados[i]);
+          itemLista.appendChild(valor);
+          listaValores.appendChild(itemLista);
+        }
+      }
+    </script>
+  </body>
+</html>
