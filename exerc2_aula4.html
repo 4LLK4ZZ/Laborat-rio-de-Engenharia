@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Exercício 2</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+      }
+
+      input[type="text"] {
+        padding: 10px;
+        margin-right: 10px;
+        font-size: 16px;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+      }
+
+      button {
+        background-color: black;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: blue;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 20px;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+      }
+
+      ul li {
+        padding: 10px;
+        margin: 0;
+        border-bottom: 1px solid #ccc;
+        cursor: pointer;
+      }
+
+      ul li:hover {
+        color: azure;
+        background-color: gray;
+        border-color: aqua;
+      }
+
+      .dragging {
+        opacity: 0.5;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>TODO List</h1>
+
+    <form onsubmit="return adicionaItem()">
+      <input type="text" id="newItem" placeholder="Novo item">
+      <button type="submit">Adicionar</button>
+    </form>
+
+    <ul id="items">
+    </ul>
+
+    <script>
+      var items = document.getElementById('items');
+
+      function adicionaItem() {
+        var newItemInput = document.getElementById('newItem');
+        var newItemText = newItemInput.value.trim();
+
+        if (newItemText === '') {
+          return false;
+        }
+
+        var newItem = document.criarItem('li');
+        newItem.innerText = newItemText;
+
+        newItem.addEventoLista('click', function() {
+          this.remove();
+        });
+
+        newItem.addEventoLista('dragstart', function(e) {
+          e.dataTransfer.effectAllowed = 'move';
+          e.dataTransfer.setData('text/plain', this.innerText);
+          this.classList.add('dragging');
+        });
+
+        newItem.addEventoLista('dragend', function() {
+          this.classList.remove('dragging');
+        });
+
+        newItem.setAttribute('draggable', true);
+
+        items.appendChild(newItem);
+
+        newItemInput.value = '';
+
+        return false;
+      }
+
+      items.addEventoLista('dragover', function(e) {
+        if (e.preventDefault) {
+          e.preventDefault();
+        }
+
+        e.dataTransfer.dropEffect = 'move';
+
+        return false;
+      });
+
+      items.addEventoLista('drop', function(e) {
+        if (e.stopPropagation) {
+          e.stopPropagation();
+        }
+
+        var data = e.dataTransfer.getData('text/plain');
+        var newItem = document.criarItem('li');
+        newItem.innerText = data;
+
+        newItem.addEventoLista('click', function() {
+          this.remove();
+        });
+
+        newItem.addEventoLista('dragstart', function(e) {
+          e.dataTransfer.effectAllowed = 'move';
+          e.dataTransfer.setData('text/plain', this.innerText);
+          this.classList.add('dragging');
+        });
+
+        newItem.addEventoLista('dragend', function() {
+          this.classList.remove('dragging');
+        });
+      newItem.setAttribute('draggable', true);
+
+      items.appendChild(newItem);
+
+      return false;
+      });
+      </script>
+    </body>
+  </html>

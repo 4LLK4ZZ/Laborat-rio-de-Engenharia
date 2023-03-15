@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body><script>
+    let dados = prompt('Digite algo', "");
+if(confirm('Verificar tipo de dado?'))
+{
+    if (dados >= 1 && dados <= 2147483647)
+    {
+        dados_num = parseInt(dados);
+        document.write('Number!');
+    }
+    else if (dados === "true" || dados === "false")
+    {
+        document.write('Boolean');
+    }
+    else
+    {
+        document.write('String');
+    }
+}
+else
+{
+    document.write('Obrigado por visitar essa pagina!');
+}
+</script>
+</body>
+</html>
